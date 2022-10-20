@@ -1,4 +1,6 @@
-﻿namespace Palindrome;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Palindrome;
 public class Program
 {
     static void Main(string[] args)
@@ -27,8 +29,18 @@ public class Program
 
     public static bool IsPalindrome<T>(LinkedList<T> linkedList)
     {
-        // are the first and alst items the same?
-        // if so, move toward the middle
+        //var CHead = linkedList.First;
+        //var CTail = linkedList.Last;
+        //int count = linkedList.Count;
+
+        //while ( CHead != null)
+        //{
+        //    if (count == 1)
+        //    {
+        //        return true;
+        //    }
+
+        //}
         return true;
     }
 }

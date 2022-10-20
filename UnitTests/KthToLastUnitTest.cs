@@ -14,7 +14,7 @@ namespace KthToLast
             {
                 linkedList.Append(i);
             }
-            
+
             for (int i = 0; i <= 40; i++)
             {
                 Assert.AreEqual((40 - i), linkedList.KthToLast(i));
