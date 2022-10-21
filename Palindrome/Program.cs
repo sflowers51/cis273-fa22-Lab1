@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.ExceptionServices;
 
 namespace Palindrome;
 public class Program
@@ -29,19 +30,32 @@ public class Program
 
     public static bool IsPalindrome<T>(LinkedList<T> linkedList)
     {
-        //var CHead = linkedList.First;
-        //var CTail = linkedList.Last;
-        //int count = linkedList.Count;
+        var left = linkedList.First;
+        var right = linkedList.Last;
 
-        //while ( CHead != null)
-        //{
-        //    if (count == 1)
-        //    {
-        //        return true;
-        //    }
+        while(left.Value.Equals(right.Value))
+        {
 
-        //}
-        return true;
+            if( left == right || left.Next == right)
+            {
+                if (left.Value.Equals(right.Value))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            left = left.Next;
+            right = right.Previous;
+
+        }
+
+
+
+        return false;
     }
 }
 

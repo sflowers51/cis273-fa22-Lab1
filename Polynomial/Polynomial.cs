@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+
 namespace Polynomial
 {
     public class Polynomial
@@ -14,16 +16,22 @@ namespace Polynomial
             terms = new LinkedList<Term>();
         }
 
-        // TODO
+        
         public void AddTerm(double coeff, int power)
         {
             var currentNode = terms.First;
             while (currentNode != null)
             {
+
                 // check for matching power
                 if (power == currentNode.Value.Power)
                 {
                     currentNode.Value.Coefficient += coeff;
+                    if (currentNode.Value.Coefficient == 0.0)
+                    {
+                        terms.Remove(currentNode);
+                        return;
+                    }
                     return;
                 }
 
@@ -31,39 +39,41 @@ namespace Polynomial
                 if (power > currentNode.Value.Power)
                 {
                     var newTerm = new Term(power, coeff);
-
+                    if (currentNode.Value.Coefficient == 0.0)
+                    {
+                        terms.Remove(currentNode);
+                        return;
+                    }
                     terms.AddBefore(currentNode, newTerm);
                     return;
                 }
 
                 currentNode = currentNode.Next;
             }
-
+           
             // Add new term to end of list
             terms.AddLast(new Term(power, coeff));
-
+            
         }
 
         
         public override string ToString()
         {
             string result = "";
-
+           if (NumberOfTerms == 0)
+                {
+                    result = "0";                  
+                }
             foreach (var term in terms)
             {                
-                if (term.Power == 0 && term.Coefficient == 0)
-                {
-                    result = term.ToString();
-                }
-
-                else if (term.Power == 0)
+                if (term.Power == 0)
                 {
                     result += term.ToString();
                 }
 
-                else if ( term.Power > 0) 
+                if ( term.Power > 0) 
                 {
-                    if (term.Coefficient == 0)
+                    if (term.Coefficient == 0.0)
                     {
                         result = "0";
                     }
@@ -75,12 +85,7 @@ namespace Polynomial
                     
                 }
 
-                if (NumberOfTerms == 0 && Degree == 0)
-                {
 
-                    result = "0";
-                    
-                }
             }
             return result;
             
@@ -130,7 +135,7 @@ namespace Polynomial
             foreach (var term in p.terms)
             {
                 
-                inverse.AddTerm(term.Coefficient * -1, term.Power);
+                inverse.AddTerm((term.Coefficient * -1), term.Power);
             }
 
             return inverse;
